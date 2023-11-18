@@ -232,4 +232,22 @@ class User {
       return null;
     }
   }
+/* add story to user's list of favorite stories**/
+  async addFavorite(storyId){
+    const token = this.loginToken;
+    const res = await axios({
+      url: `${BASE_URL}/users/${this.username}/favorites/${storyId}`,
+      method: "POST",
+      params: { token }
+    });
+  }
+/* remove story from user's list of favorite stories**/
+  async removeFavorite(storyId){
+    const token = this.loginToken;
+    const res = await axios({
+      url: `${BASE_URL}/users/${this.username}/favorites/${storyId}`,
+      method: "DELETE",
+      params: { token }
+    });
+  }
 }

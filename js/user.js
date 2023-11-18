@@ -111,6 +111,18 @@ function updateUIOnUserLogin() {
   console.debug("updateUIOnUserLogin");
 
   $allStoriesList.show();
-
+  $navSubmit.show();
+  $navFavorites.show();
+  //If any stories on the page is in the currentUser's favorites, list, then fill in the favorites star
+  markFavoriteStories();
   updateNavOnLogin();
+}
+
+function markFavoriteStories(){
+  for (const story of currentUser.favorites){
+    if($(`#star-${story.storyId}`)){
+      $(`#star-${story.storyId}`).removeClass('fa-regular');
+      $(`#star-${story.storyId}`).addClass('fa-solid');
+    }
+  }
 }
