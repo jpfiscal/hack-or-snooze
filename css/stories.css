@@ -16,14 +16,14 @@
   margin: 20px 30px;
 }
 
-
 /* Individual stories */
 
 .story-link {
+  display:inline;
   color: black;
   font-size: 0.85rem;
   font-weight: normal;
-  margin: 18px 0;
+  /* margin: 18px 0; */
 }
 
 .story-link:hover {
@@ -31,9 +31,45 @@
 }
 
 .story-author {
-  margin-left: 2em;
+  /* margin-left: 2em; */
+  display: block;
+  color: green;
+  font-weight: bold;
+  margin-top: 3px;
 }
 
 .story-user {
   display: block;
+  color: orange;
+  margin-top: 3px;
+}
+
+hr{
+  border: 0.5px solid rgb(231, 231, 231)
+}
+ol li .storyContentDiv{
+  display:flex;
+  align-items:flex-start;
+}
+
+.storyDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Left-aligns the content */
+  margin-left: 1em;
+}
+
+.fa.fa-star{
+  margin: 10px 10px;
+}
+
+.fa-trash-can{
+  margin-right: 5px;
+}
+
+.fa-trash-can:hover{
+  color:red;
+}
+.story-hostname{
+  display:inline;
 }

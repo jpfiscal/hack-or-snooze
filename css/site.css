@@ -1,4 +1,8 @@
 /* General typography */
+html {
+  height: 100%;
+  background: radial-gradient(circle, rgb(219, 154, 219), rgb(152, 205, 223));
+}
 
 body {
   font-family: Arimo, sans-serif;

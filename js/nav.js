@@ -47,7 +47,7 @@ $navSubmit.on("click", navSubmitClick);
 
 /** Add or remove story from currentUser's favorites list */
 async function handleStoriesClick(evt){
-  const parentId = evt.target.parentElement.id;
+  const parentId = evt.target.parentElement.parentElement.id;
   if (evt.target.classList.contains('fa-star')){
     addRemoveFavorites(evt);
   } else if (evt.target.classList.contains('fa-trash-can')){
@@ -57,7 +57,7 @@ async function handleStoriesClick(evt){
   }
 }
 async function addRemoveFavorites(evt){
-  const parentId = evt.target.parentElement.id;
+  const parentId = evt.target.parentElement.parentElement.id;
   if (evt.target.classList.contains('fa-solid')){
     console.log("this is a favorite!");
     await currentUser.removeFavorite(parentId);

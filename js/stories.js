@@ -25,13 +25,20 @@ function generateStoryMarkup(story) {
   const hostName = story.getHostName();
   return $(`
       <li id="${story.storyId}">
-        <i id="star-${story.storyId}" class="fa-regular fa-star"></i>
-        <a href="${story.url}" target="a_blank" class="story-link">
-          ${story.title}
-        </a>
-        <small class="story-hostname">(${hostName})</small>
-        <small class="story-author">by ${story.author}</small>
-        <small class="story-user">posted by ${story.username}</small>
+        <div class="storyContentDiv">
+          <i id="star-${story.storyId}" class="fa-regular fa-star"></i>
+          <div class="storyDiv">
+            <div>
+              <a href="${story.url}" target="a_blank" class="story-link">
+                ${story.title}
+              </a>
+              <small class="story-hostname">(${hostName})</small>
+            </div>
+            <small class="story-author">by ${story.author}</small>
+            <small class="story-user">posted by ${story.username}</small>
+          </div>
+        </div>
+        <hr>
       </li>
     `);
 }
@@ -59,8 +66,6 @@ async function submitStory(){
   console.log(story);
   let submittedStory = await storyList.addStory(user, story); //let instead of const...doest this make a difference here???
   console.log(submittedStory);
-  // const storyMarkUp = generateStoryMarkup(submittedStory);
-  // $allStoriesList.append(storyMarkUp);
 } 
 
 $submitStory.on("click", async function(evt){
@@ -71,5 +76,5 @@ $submitStory.on("click", async function(evt){
 });
 
 function addDeleteBtns(){
-  $('li').prepend(`<i class="fa-solid fa-trash-can"></i>`)
+  $('.storyContentDiv').prepend(`<i class="fa-solid fa-trash-can"></i>`)
 }
