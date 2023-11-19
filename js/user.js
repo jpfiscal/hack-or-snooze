@@ -113,6 +113,7 @@ function updateUIOnUserLogin() {
   $allStoriesList.show();
   $navSubmit.show();
   $navFavorites.show();
+  $navMyStories.show();
   //If any stories on the page is in the currentUser's favorites, list, then fill in the favorites star
   markFavoriteStories();
   updateNavOnLogin();

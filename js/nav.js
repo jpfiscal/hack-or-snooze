@@ -40,28 +40,36 @@ function updateNavOnLogin() {
 
 function navSubmitClick(evt) {
   console.debug("navSubmitClick");
-  $("#addStory-form").show();
+  $("#addStory-form").toggle();
 }
 
 $navSubmit.on("click", navSubmitClick);
 
 /** Add or remove story from currentUser's favorites list */
-async function addRemoveFavorites(evt){
+async function handleStoriesClick(evt){
+  const parentId = evt.target.parentElement.id;
   if (evt.target.classList.contains('fa-star')){
-    const parentId = evt.target.parentElement.id;
-    if (evt.target.classList.contains('fa-solid')){
-      console.log("this is a favorite!");
-      await currentUser.removeFavorite(parentId);
-      swapStarFill(evt.target.id, 'fa-solid'); //make the star unfilled
-      
-    }else if (evt.target.classList.contains('fa-regular')){
-      console.log("this isn't a favorite");
-      await currentUser.addFavorite(parentId);
-      swapStarFill(evt.target.id, 'fa-regular'); //make the star solid
-      
-    }
+    addRemoveFavorites(evt);
+  } else if (evt.target.classList.contains('fa-trash-can')){
+    console.log(`delete this story!`);
+    await deleteStory(parentId);
+    $(`#${parentId}`).remove();
   }
 }
+async function addRemoveFavorites(evt){
+  const parentId = evt.target.parentElement.id;
+  if (evt.target.classList.contains('fa-solid')){
+    console.log("this is a favorite!");
+    await currentUser.removeFavorite(parentId);
+    swapStarFill(evt.target.id, 'fa-solid'); //make the star unfilled
+    
+  }else if (evt.target.classList.contains('fa-regular')){
+    console.log("this isn't a favorite");
+    await currentUser.addFavorite(parentId);
+    swapStarFill(evt.target.id, 'fa-regular'); //make the star solid
+  }
+}
+
 /* If the star icon is filled, unfill it, if it's unfilled, fill it*/
 function swapStarFill(elementID, curStatus){
   if (curStatus === 'fa-regular'){
@@ -73,7 +81,16 @@ function swapStarFill(elementID, curStatus){
   }
 }
 
-$storiesContainer.on("click", addRemoveFavorites);
+async function deleteStory(storyId){
+  const res = await axios({
+    url: `${BASE_URL}/stories/${storyId}`,
+    method: "DELETE",
+    params: { token: currentUser.loginToken }
+  });
+  console.log(`deleted story #: ${storyId}`);
+}
+
+$storiesContainer.on("click", handleStoriesClick);
 
 /** favorites page **/
 $navFavorites.on("click", function(){
@@ -85,5 +102,19 @@ $navFavorites.on("click", function(){
     $allStoriesList.append($story);
   }
   $allStoriesList.show();
+  markFavoriteStories();
+})
+
+/* my stories page */
+$navMyStories.on("click", function(){
+  //remove all the story Li's from page
+  $allStoriesList.empty();
+  //add only the stories that are in the currentUser's stories list
+  for (let story of currentUser.ownStories) {
+    const $story = generateStoryMarkup(story);
+    $allStoriesList.append($story);
+  }
+  $allStoriesList.show();
+  addDeleteBtns();
   markFavoriteStories();
 })

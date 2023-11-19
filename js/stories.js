@@ -69,3 +69,7 @@ $submitStory.on("click", async function(evt){
   start();
   $submitForm.hide();
 });
+
+function addDeleteBtns(){
+  $('li').prepend(`<i class="fa-solid fa-trash-can"></i>`)
+}

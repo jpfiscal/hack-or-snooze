@@ -17,6 +17,7 @@ const $navUserProfile = $("#nav-user-profile");
 const $navLogOut = $("#nav-logout");
 const $navSubmit = $("#nav-submitStory");
 const $navFavorites = $("#nav-favorites");
+const $navMyStories = $("#nav-myStories");
 
 const $submitStory = $("#submitStory");
 

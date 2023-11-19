@@ -41,9 +41,15 @@ class Story {
     let hostname = this.url.slice(startPos, endPos);
     return hostname;
   }
+
+  async delete() {
+    const response = await axios({
+      url: `${BASE_URL}/stories/${this.storyId}`,
+      method: "DELETE",
+      params: { token }
+    });
+  }
 }
-
-
 /******************************************************************************
  * List of Story instances: used by UI to show story lists in DOM.
  */
