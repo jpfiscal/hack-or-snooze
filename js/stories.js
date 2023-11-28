@@ -60,13 +60,17 @@ function putStoriesOnPage() {
 }
 
 /** Submitting the form */
-async function submitStory(){
+function submitStory(){
   const user = currentUser;
   const story = {title: $('#inputTitle').val(), author: $('#inputAuthor').val(), url: $('#inputURL').val()}
   console.log(story);
-  let submittedStory = await storyList.addStory(user, story); //let instead of const...doest this make a difference here???
-  console.log(submittedStory);
+  let submittedStory = storyList.addStory(user, story).then(function(){
+    storyList.addStory().then(function(){
+      
+    })
+  }); //let instead of const...doest this make a difference here???
 } 
+
 
 $submitStory.on("click", async function(evt){
   evt.preventDefault();

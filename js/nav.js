@@ -58,16 +58,19 @@ async function handleStoriesClick(evt){
 }
 async function addRemoveFavorites(evt){
   const parentId = evt.target.parentElement.parentElement.id;
+  const token = localStorage.getItem("token");
+  const username = localStorage.getItem("username");
+
   if (evt.target.classList.contains('fa-solid')){
     console.log("this is a favorite!");
     await currentUser.removeFavorite(parentId);
     swapStarFill(evt.target.id, 'fa-solid'); //make the star unfilled
-    
   }else if (evt.target.classList.contains('fa-regular')){
     console.log("this isn't a favorite");
     await currentUser.addFavorite(parentId);
     swapStarFill(evt.target.id, 'fa-regular'); //make the star solid
   }
+  currentUser = await User.loginViaStoredCredentials(token, username);
 }
 
 /* If the star icon is filled, unfill it, if it's unfilled, fill it*/
@@ -106,9 +109,10 @@ $navFavorites.on("click", function(){
 })
 
 /* my stories page */
-$navMyStories.on("click", function(){
+$navMyStories.on("click", async function(){
   //remove all the story Li's from page
   $allStoriesList.empty();
+  //update  current user 
   //add only the stories that are in the currentUser's stories list
   for (let story of currentUser.ownStories) {
     const $story = generateStoryMarkup(story);

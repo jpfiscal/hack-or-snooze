@@ -119,11 +119,18 @@ function updateUIOnUserLogin() {
   updateNavOnLogin();
 }
 
-function markFavoriteStories(){
+async function markFavoriteStories(){
+  const token = localStorage.getItem("token");
+  const username = localStorage.getItem("username");
+  currentUser = await User.loginViaStoredCredentials(token, username);
+  console.log(`got a user, and ${token} and ${username}`)
+  console.log(currentUser)
+  console.log(currentUser.favorites)
   for (const story of currentUser.favorites){
     if($(`#star-${story.storyId}`)){
       $(`#star-${story.storyId}`).removeClass('fa-regular');
       $(`#star-${story.storyId}`).addClass('fa-solid');
     }
   }
+
 }

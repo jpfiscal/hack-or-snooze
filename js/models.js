@@ -43,6 +43,7 @@ class Story {
   }
 
   async delete() {
+    const token = currentUser.loginToken;
     const response = await axios({
       url: `${BASE_URL}/stories/${this.storyId}`,
       method: "DELETE",
